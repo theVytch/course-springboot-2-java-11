@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.eduardo.couse.entities.Category;
 import com.eduardo.couse.entities.Order;
+import com.eduardo.couse.entities.OrderItem;
 import com.eduardo.couse.entities.Product;
 import com.eduardo.couse.entities.User;
 import com.eduardo.couse.entities.enums.OrderStatus;
 import com.eduardo.couse.repositories.CategoryRepository;
+import com.eduardo.couse.repositories.OrderItemRepositorie;
 import com.eduardo.couse.repositories.OrderRepository;
 import com.eduardo.couse.repositories.ProductRepository;
 import com.eduardo.couse.repositories.UserRepository;
@@ -30,6 +32,8 @@ public class TestConfig implements CommandLineRunner{
 	private CategoryRepository categoryRepository;
 	@Autowired
 	private ProductRepository productRepository;
+	@Autowired
+	private OrderItemRepositorie orderItemRepositorie;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -67,5 +71,13 @@ public class TestConfig implements CommandLineRunner{
 		
 		userRepository.saveAll(Arrays.asList(u1, u2));
 		orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+		
+		
+		OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice()); 
+		OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice()); 
+		OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice()); 
+		OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+	
+		orderItemRepositorie.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
 	}
 }
